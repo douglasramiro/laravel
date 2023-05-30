@@ -51,3 +51,4 @@ sudo systemctl restart httpd
 SISTEMA_PRD=$(aws ssm get-parameter --name /sistema/prd --with-decryption --query Parameter.Value --region us-east-1)
 
 echo "$SISTEMA_PRD" > /tmp/sistema
+printf  "$SISTEMA_PRD" > /tmp/sistema2
