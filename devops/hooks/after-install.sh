@@ -30,3 +30,16 @@ sudo -u $WEB_USER composer install --no-dev --no-progress --prefer-dist >> /tmp/
 
 # generate app key
 sudo -u $WEB_USER php artisan key:generate >> /tmp/cicd.log
+
+
+# creating virtual host
+
+cat <<EOF > /etc/httpd/conf.d/laravel.conf
+<VirtualHost *:80>
+       ServerName laravel.example.com
+       DocumentRoot /var/www/html/public
+<Directory /var/www/html>
+              AllowOverride All
+       </Directory>
+</VirtualHost>
+EOF
