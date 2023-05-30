@@ -11,7 +11,7 @@ cd $WEB_DIR
 sudo cp /var/www/html/.env.example /var/www/html/.env
 
 DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value)
-sudo sed -i 's/##DB_USERNAME##/$DB_USERNAME/g' /var/www/html/.env
+sudo sed -i "s/##DB_USERNAME##/$DB_USERNAME/g" /var/www/html/.env
 
 # change user owner to apach
 sudo chown -R apache:apache .
