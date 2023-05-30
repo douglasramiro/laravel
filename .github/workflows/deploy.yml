@@ -28,4 +28,8 @@ jobs:
       - name: STS
         run: aws sts get-caller-identity
 
+      - name: Recover database username
+        run: aws ssm get-parameter --name /database/username --with-decryption --query Parameter.Value
+        id: recover-database-username
+
 
