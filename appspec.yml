@@ -6,4 +6,4 @@ files:
 hooks:
   AfterInstall:
     - location: ./devops/hooks/after-install.sh
-      runas: ubuntu
+      runas: ec2-user
