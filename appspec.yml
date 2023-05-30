@@ -7,3 +7,5 @@ hooks:
   AfterInstall:
     - location: ./devops/hooks/after-install.sh
       runas: ec2-user
+
+
