@@ -34,7 +34,7 @@ sudo -u $WEB_USER php artisan key:generate >> /tmp/cicd.log
 
 # creating virtual host
 
-cat <<EOF > /etc/httpd/conf.d/laravel.conf
+sudo bash -c  'cat <<EOF > /etc/httpd/conf.d/laravel.conf
 <VirtualHost *:80>
        ServerName laravel.example.com
        DocumentRoot /var/www/html/public
@@ -42,6 +42,6 @@ cat <<EOF > /etc/httpd/conf.d/laravel.conf
               AllowOverride All
        </Directory>
 </VirtualHost>
-EOF
+EOF'
 
 sudo systemctl restart httpd
