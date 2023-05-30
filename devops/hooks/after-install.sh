@@ -43,3 +43,5 @@ cat <<EOF > /etc/httpd/conf.d/laravel.conf
        </Directory>
 </VirtualHost>
 EOF
+
+sudo systemctl restart httpd
