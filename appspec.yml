@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/aws-codedeploy-bitbucket-laravel
+    destination: /var/www/html
 hooks:
   AfterInstall:
     - location: ./devops/hooks/after-install.sh
