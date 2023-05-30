@@ -42,10 +42,11 @@ jobs:
         run: cp .env.example .env
 
       - name: Replace database username
-        uses: datamonsters/replace-action
+        uses: datamonsters/replace-actioni@v2
         with:
           files: '.env'
           replacements: '##DB_USERNAME##=${{steps.setVars.outputs.DB_USERNAME}}'
+
       - name: Validate .env
         run: cat .env
 
