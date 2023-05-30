@@ -10,7 +10,13 @@ cd $WEB_DIR
 #creating .env file
 sudo cp /var/www/html/.env.example /var/www/html/.env
 
-DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value --region us-east-1)
+if [ "$DEPLOYMENT_GROUP_NAME" == "laravel-codedeploy-group" ]
+then
+  DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value --region us-east-1)
+else
+  DB_USERNAME=$(aws ssm get-parameter --name /database/stage/username --with-decryption --query Parameter.Value --region us-east-1)
+fi
+
 sudo sed -i "s/##DB_USERNAME##/$DB_USERNAME/g" /var/www/html/.env
 
 # change user owner to apach
