@@ -8,10 +8,10 @@ export WEB_USER="ec2-user"
 cd $WEB_DIR
 
 #creating .env file
-cp .env.example .env
+sudo cp /var/www/html/.env.example /var/www/html/.env
 
 DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value)
-sed -i 's/##DB_USERNAME##/$DB_USERNAME/g' /tmp/.env
+sudo sed -i 's/##DB_USERNAME##/$DB_USERNAME/g' /var/www/html/.env
 
 # change user owner to apach
 sudo chown -R apache:apache .
