@@ -38,6 +38,10 @@ jobs:
             echo "DB_USERNAME=$(aws ssm get-parameter --name /database/stage/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
           fi
 
+      - name: "Add mask to sensitive info"
+        run: |
+          echo "::add-mask::${{ steps.setVars.outputs.DB_USERNAME }}"
+
       - name: Create .env file
         run: cp .env.example .env
 
