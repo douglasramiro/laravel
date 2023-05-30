@@ -2,6 +2,9 @@ name: Build and Deploy
 
 on:
   push
+    branches: 
+      - main
+      - stage
 
 env:
   AWS_REGION: us-east-1
@@ -25,14 +28,17 @@ jobs:
           role-session-name: GitHub-Action-Role
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: STS
-        run: aws sts get-caller-identity
-
-      - name: Recover database username
-        run: echo "DB_USERNAME=$(aws ssm get-parameter --name /database/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
-        id: recover-database-username
+      - name: Set Environment Variables
+        id: setVars
+        run: |
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
+            echo "DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
+          fi
+          if [[ "${{github.base_ref}}" == "stage" || "${{github.ref}}" == "refs/heads/stage" ]]; then
+            echo "DB_USERNAME=$(aws ssm get-parameter --name /database/stage/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
+          fi
 
       - name: Replace database username
-        run: echo ${{steps.recover-database-username.outputs.DB_USERNAME}}
+        run: echo ${{steps.setVars.outputs.DB_USERNAME}}
 
 
