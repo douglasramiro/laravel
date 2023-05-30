@@ -7,6 +7,8 @@ export WEB_USER="ec2-user"
 
 cd $WEB_DIR
 
+rm -rf /var/log/cicd.log
+
 #creating .env file
 sudo cp /var/www/html/.env.example /var/www/html/.env
 
@@ -23,8 +25,8 @@ sudo sed -i "s/##DB_USERNAME##/$DB_USERNAME/g" /var/www/html/.env
 sudo chown -R apache:apache .
 
 # install composer deps
-sudo -u $WEB_USER composer install --no-dev --no-progress --prefer-dist
+sudo -u $WEB_USER composer install --no-dev --no-progress --prefer-dist >> /var/log/cicd.log
 
 
 # generate app key
-sudo -u $WEB_USER php artisan key:generate
+sudo -u $WEB_USER php artisan key:generate >> /var/log/cicd.log
