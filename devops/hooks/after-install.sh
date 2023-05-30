@@ -3,7 +3,7 @@
 
 
 export WEB_DIR="/var/www/html"
-export WEB_USER="ec2-user"
+export WEB_USER="apache"
 
 cd $WEB_DIR
 
