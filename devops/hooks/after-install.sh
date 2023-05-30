@@ -10,7 +10,7 @@ cd $WEB_DIR
 #creating .env file
 sudo cp /var/www/html/.env.example /var/www/html/.env
 
-if [ "$DEPLOYMENT_GROUP_NAME" == "laravel-codedeploy-group" ]
+if [ "$DEPLOYMENT_GROUP_NAME" == "laravel-codedeploy-group-s" ]
 then
   DB_USERNAME=$(aws ssm get-parameter --name /database/prd/username --with-decryption --query Parameter.Value --region us-east-1)
 else
