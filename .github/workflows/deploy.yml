@@ -29,7 +29,7 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: Recover database username
-        run: echo "::set-output name=DB_USERNAME::$(aws ssm get-parameter --name /database/username --with-decryption --query Parameter.Value)"
+        run: echo "DB_USERNAME=$(aws ssm get-parameter --name /database/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
         id: recover-database-username
 
       - name: Replace database username
