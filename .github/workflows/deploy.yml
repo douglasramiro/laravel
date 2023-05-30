@@ -38,7 +38,16 @@ jobs:
             echo "DB_USERNAME=$(aws ssm get-parameter --name /database/stage/username --with-decryption --query Parameter.Value)" >> $GITHUB_OUTPUT
           fi
 
+      - name: Create .env file
+        run: cp .env.example .env
+
       - name: Replace database username
-        run: echo ${{steps.setVars.outputs.DB_USERNAME}}
+        uses: datamonsters/replace-action
+        with:
+          files: '.env'
+          replacements: '##DB_USERNAME##=${{steps.setVars.outputs.DB_USERNAME}}'
+      - name: Validate .env
+        run: cat .env
+
 
 
